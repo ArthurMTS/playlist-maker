@@ -15,7 +15,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed flex justify-between px-20 items-center w-screen h-20 bg-gray-950">
+    <header className="fixed flex justify-between px-20 items-center w-screen h-20 bg-slate-700 dark:bg-slate-950">
       <h1 className="text-slate-200 text-3xl font-mono">Make-a-'list</h1>
 
       <div className="flex items-center gap-4">

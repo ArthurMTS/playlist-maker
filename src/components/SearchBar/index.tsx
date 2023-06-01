@@ -16,7 +16,7 @@ export function SearchBar() {
   return (
     <form onSubmit={onSubmit} className="flex gap-4">
       <input
-        className="border border-indigo-700 rounded-xl p-2"
+        className="border text-xl outline-indigo-700 border-indigo-700 rounded-xl p-2 dark:bg-slate-900 dark:text-slate-100"
         type="text"
         placeholder="Search for an artist, music or album"
         title="Search for an artist, music or album"
@@ -24,7 +24,7 @@ export function SearchBar() {
         onChange={onSearchInputChange}
         required
       />
-      <Button>Search</Button>
+      <Button className="text-xl">Search</Button>
     </form>
   );
 }
