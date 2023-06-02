@@ -1,6 +1,12 @@
-import { iRequestParams, iTokenParams } from "@/config/types";
+export const getAccessToken = async (clientID: string, clientSecret: string) => {
+  const tokenParams = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `grant_type=client_credentials&client_id=${clientID}&client_secret=${clientSecret}`,
+  };
 
-export const getAccessToken = async (tokenParams: iTokenParams) => {
   const result = await fetch(
     "https://accounts.spotify.com/api/token",
     tokenParams,
@@ -9,7 +15,13 @@ export const getAccessToken = async (tokenParams: iTokenParams) => {
   return result.access_token;
 };
 
-export const search = async (searchTerm: string, requestParams: iRequestParams) => {
+export const search = async (searchTerm: string, accessToken: string) => {
+  const requestParams = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
   const result = await fetch(
     `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
     requestParams,

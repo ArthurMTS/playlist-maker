@@ -1,13 +1,14 @@
-export interface iTokenParams {
-  method: string;
-  headers: {
-    "Content-Type": string;
+export interface iTrack {
+  id: string;
+  name: string;
+  album: {
+    name: string;
+    images: [{ url: string }];
   };
-  body: string;
-}
-
-export interface iRequestParams {
-  headers: {
-    Authorization: string;
-  };
+  artists: [
+    {
+      name: string;
+    },
+  ];
+  "preview_url": string | null;
 }

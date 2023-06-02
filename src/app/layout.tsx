@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 
 import { AccessTokenProvider } from "@/contexts/accessToken";
 import "./globals.css";
+import { TracksProvider } from "@/contexts/tracks";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <AccessTokenProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <TracksProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </TracksProvider>
     </AccessTokenProvider>
   );
 }

@@ -3,11 +3,15 @@ import React from "react";
 
 import { Button, Header, SearchBar, Track } from "@/components";
 import { AccessTokenContext } from "@/contexts/accessToken";
+import { TracksContext } from "@/contexts/tracks";
+import { iTrack } from "@/config/types";
 
 export default function Home() {
   const [token, setToken] = React.useState("");
   const [playlistName, setPlaylistName] = React.useState("New Playlist");
+  const [playlist, setPlaylist] = React.useState<iTrack[]>([]);
   const { accessToken } = React.useContext(AccessTokenContext);
+  const { tracks } = React.useContext(TracksContext);
 
   React.useEffect(() => {
     setToken(accessToken);
@@ -17,6 +21,18 @@ export default function Home() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setPlaylistName(event.target.value);
+  };
+  const addTrackToPlaylist = (track: iTrack) => {
+    const list = [...playlist];
+    list.push(track);
+    setPlaylist(list);
+  };
+  const removeTrackFromPlaylist = (trackID: string) => {
+    const list = playlist.filter(track => track.id !== trackID);
+    setPlaylist(list);
+  };
+  const onSavePlaylistButtonClick = () => {
+    if (playlist.length <= 0) return;
   };
 
   return (
@@ -32,48 +48,17 @@ export default function Home() {
             </h2>
 
             <div className="flex flex-col gap-2 overflow-y-auto h-80 p-2">
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
-              <Track
-                name="Throught the Valley"
-                artist="Shawn James"
-                album="Shapeshifters"
-                type="add"
-              />
+              {tracks.map(track => (
+                <Track
+                  key={track.id}
+                  name={track.name}
+                  src={track.album.images[0]?.url}
+                  artist={track.artists[0]?.name}
+                  album={track.album.name}
+                  type="add"
+                  onClick={() => addTrackToPlaylist(track)}
+                />
+              ))}
             </div>
           </section>
 
@@ -87,52 +72,21 @@ export default function Home() {
               onChange={onPlaylistNameInputChange}
             />
 
-            <div className="flex flex-col gap-2 overflow-y-auto h-80 p-2">
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
-              <Track
-                name="Billie Jean"
-                artist="Michael Jackson"
-                album="Sei não man"
-                type="remove"
-              />
+            <div className="flex flex-col gap-2 overflow-y-auto max-h-80 p-2">
+              {playlist.map(track => (
+                <Track
+                  key={track.id}
+                  name={track.name}
+                  src={track.album.images[0]?.url}
+                  artist={track.artists[0]?.name}
+                  album={track.album.name}
+                  type="remove"
+                  onClick={() => removeTrackFromPlaylist(track.id)}
+                />
+              ))}
             </div>
 
-            <Button>Save Spotify</Button>
+            <Button onClick={onSavePlaylistButtonClick}>Save Spotify</Button>
           </section>
         </div>
       </main>

@@ -2,7 +2,6 @@
 import React from "react";
 
 import { API_KEYS } from "@/config/apiKeys";
-import { getTokenParams } from "@/utils/params";
 import { getAccessToken } from "@/utils/spotify";
 import { useStorage } from "@/hooks/useStorage";
 
@@ -25,11 +24,7 @@ export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
     const handleToken = async () => {
       if (accessToken !== "") return;
 
-      const tokenParams = getTokenParams(
-        API_KEYS.CLIENT_ID,
-        API_KEYS.CLIENT_SECRET,
-      );
-      const token = await getAccessToken(tokenParams);
+      const token = await getAccessToken(API_KEYS.CLIENT_ID, API_KEYS.CLIENT_SECRET);
       setAccessToken(token);
     };
 
