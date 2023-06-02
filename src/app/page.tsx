@@ -55,6 +55,7 @@ export default function Home() {
                   src={track.album.images[0]?.url}
                   artist={track.artists[0]?.name}
                   album={track.album.name}
+                  preview_url={track.preview_url}
                   type="add"
                   onClick={() => addTrackToPlaylist(track)}
                 />
@@ -80,6 +81,7 @@ export default function Home() {
                   src={track.album.images[0]?.url}
                   artist={track.artists[0]?.name}
                   album={track.album.name}
+                  preview_url={track.preview_url}
                   type="remove"
                   onClick={() => removeTrackFromPlaylist(track.id)}
                 />
