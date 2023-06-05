@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
 
+import { useStorage } from "@/hooks/useStorage";
+
 export function Header() {
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = useStorage("theme", "dark");
 
   React.useEffect(() => {
     if (theme === "dark") document.documentElement.classList.add("dark");

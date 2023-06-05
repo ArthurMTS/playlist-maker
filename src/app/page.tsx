@@ -22,9 +22,11 @@ export default function Home() {
   ) => {
     setPlaylistName(event.target.value);
   };
-  const addTrackToPlaylist = (track: iTrack) => {
+  const addTrackToPlaylist = (newTrack: iTrack) => {
+    const isInTheList = playlist.some(track => track.id === newTrack.id);
+    if (isInTheList) return;
     const list = [...playlist];
-    list.push(track);
+    list.push(newTrack);
     setPlaylist(list);
   };
   const removeTrackFromPlaylist = (trackID: string) => {

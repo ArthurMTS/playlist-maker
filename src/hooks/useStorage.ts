@@ -1,9 +1,9 @@
 import React from "react";
 
-export const useStorage = (key: string) => {
+export const useStorage = (key: string, initialValue?: string) => {
   const [value, setValue] = React.useState<string>(() => {
     if (typeof window === "undefined") return "";
-    return localStorage.getItem(key) || "";
+    return localStorage.getItem(key) || initialValue || "";
   });
 
   React.useEffect(() => {

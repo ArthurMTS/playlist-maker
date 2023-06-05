@@ -2,7 +2,7 @@
 import React from "react";
 
 import { API_KEYS } from "@/config/apiKeys";
-import { getAccessToken } from "@/utils/spotify";
+import { getAccessToken, search } from "@/utils/spotify";
 import { useStorage } from "@/hooks/useStorage";
 
 interface iAccessTokenContext {
@@ -22,7 +22,14 @@ export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
 
   React.useEffect(() => {
     const handleToken = async () => {
-      if (accessToken !== "") return;
+      if (accessToken !== "") {
+        try {
+          const test = await search("test", accessToken);
+          return;
+        } catch (err) {
+          console.log(err);
+        }
+      }
 
       const token = await getAccessToken(API_KEYS.CLIENT_ID, API_KEYS.CLIENT_SECRET);
       setAccessToken(token);
