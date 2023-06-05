@@ -22,9 +22,9 @@ export function SearchBar() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex gap-4">
+    <form onSubmit={onSubmit} className="flex gap-2">
       <input
-        className="border text-xl outline-indigo-700 border-indigo-700 rounded-xl p-2 dark:bg-slate-900 dark:text-slate-100"
+        className="border text-sm outline-indigo-700 border-indigo-700 rounded-xl p-1 dark:bg-slate-900 dark:text-slate-100 xl:text-xl xl:p-2"
         type="text"
         placeholder="Search for an artist, music or album"
         title="Search for an artist, music or album"
@@ -32,7 +32,7 @@ export function SearchBar() {
         onChange={onSearchInputChange}
         required
       />
-      <Button className="text-xl">Search</Button>
+      <Button className="text-sm xl:text-xl xl:p-2">Search</Button>
     </form>
   );
 }

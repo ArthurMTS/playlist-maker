@@ -17,23 +17,23 @@ export function Header() {
   };
 
   return (
-    <header className="fixed flex justify-between px-20 items-center w-screen h-20 bg-slate-700 dark:bg-slate-950">
-      <h1 className="text-slate-200 text-3xl font-mono">Make-a-'list</h1>
+    <header className="fixed flex justify-between px-5 items-center w-screen h-10 bg-slate-700 dark:bg-slate-950 sm:h-14">
+      <h1 className="text-slate-200 text-base font-mono sm:text-lg xl:text-3xl">Make-a-'list</h1>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 xl:gap-4">
         <a
           className="cursor-pointer p-1 transition-colors rounded-lg hover:bg-slate-800"
           href="https://github.com/ArthurMTS"
           target="_blank"
         >
-          <img src="/icons/github.svg" width={20} height={20} />
+          <img className="xl:w-4" src="/icons/github.svg" width={15} height={15} />
         </a>
         <img
-          className="cursor-pointer bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800"
+          className="cursor-pointer bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800 xl:w-6"
           src={theme === "dark" ? "/icons/sun.svg" : "/icons/moon.svg"}
           alt="theme toggler"
-          width={25}
-          height={25}
+          width={20}
+          height={20}
           onClick={toggleTheme}
         />
       </div>

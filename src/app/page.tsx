@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { Button, Header, SearchBar, Track } from "@/components";
+import { Button, Header, SearchBar, ListCard } from "@/components";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
 import { iTrack } from "@/config/types";
@@ -29,8 +29,8 @@ export default function Home() {
     list.push(newTrack);
     setPlaylist(list);
   };
-  const removeTrackFromPlaylist = (trackID: string) => {
-    const list = playlist.filter(track => track.id !== trackID);
+  const removeTrackFromPlaylist = (trackToRemove: iTrack) => {
+    const list = playlist.filter(track => track.id !== trackToRemove.id);
     setPlaylist(list);
   };
   const onSavePlaylistButtonClick = () => {
@@ -40,58 +40,38 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center pt-24 dark:bg-slate-900">
+      <main className="flex min-h-screen flex-col items-center pt-20 dark:bg-slate-900">
         <SearchBar />
 
-        <div className="flex gap-20 mt-5">
-          <section className="flex flex-col items-center gap-5">
-            <h2 className="p-2 text-2xl font-mono font-bold dark:text-slate-100">
-              Results
-            </h2>
+        <div className="flex gap-2 mt-2 flex-col lg:flex-row xl:mt-8">
+          <ListCard
+            title={
+              <h2 className="p-2 text-base font-mono font-bold dark:text-slate-100 sm:text-lg xl:text-3xl">
+                Results
+              </h2>
+            }
+            list={tracks}
+            onClick={addTrackToPlaylist}
+          />
 
-            <div className="flex flex-col gap-2 overflow-y-auto h-80 p-2">
-              {tracks.map(track => (
-                <Track
-                  key={track.id}
-                  name={track.name}
-                  src={track.album.images[0]?.url}
-                  artist={track.artists[0]?.name}
-                  album={track.album.name}
-                  preview_url={track.preview_url}
-                  type="add"
-                  onClick={() => addTrackToPlaylist(track)}
-                />
-              ))}
-            </div>
-          </section>
-
-          <section className="flex flex-col items-center gap-5">
-            <input
-              className="bg-transparent font-bold font-mono cursor-pointer text-center outline-0 text-2xl dark:text-slate-100 border-none rounded-xl p-2 focus:border-indigo-700"
-              type="text"
-              title="Click to change playlist name"
-              placeholder="Playlist Title"
-              value={playlistName}
-              onChange={onPlaylistNameInputChange}
-            />
-
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-80 p-2">
-              {playlist.map(track => (
-                <Track
-                  key={track.id}
-                  name={track.name}
-                  src={track.album.images[0]?.url}
-                  artist={track.artists[0]?.name}
-                  album={track.album.name}
-                  preview_url={track.preview_url}
-                  type="remove"
-                  onClick={() => removeTrackFromPlaylist(track.id)}
-                />
-              ))}
-            </div>
-
-            <Button onClick={onSavePlaylistButtonClick}>Save Spotify</Button>
-          </section>
+          <ListCard
+            title={
+              <input
+                className="bg-transparent font-bold font-mono cursor-pointer text-center outline-0 text-base dark:text-slate-100 border-none rounded-xl p-2 focus:border-indigo-700 sm:text-lg xl:text-3xl"
+                type="text"
+                title="Click to change playlist name"
+                placeholder="Playlist Title"
+                value={playlistName}
+                onChange={onPlaylistNameInputChange}
+              />
+            }
+            list={playlist}
+            button={
+              <Button onClick={onSavePlaylistButtonClick}>Save Spotify</Button>
+            }
+            onClick={removeTrackFromPlaylist}
+            playlist
+          />
         </div>
       </main>
     </>
