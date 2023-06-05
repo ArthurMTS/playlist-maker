@@ -7,6 +7,7 @@ import { useStorage } from "@/hooks/useStorage";
 
 interface iAccessTokenContext {
   accessToken: string;
+  setAccessToken: (token: string) => void;
 }
 
 interface AccessTokenProviderProps {
@@ -39,7 +40,7 @@ export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
   }, []);
 
   return (
-    <AccessTokenContext.Provider value={{ accessToken }}>
+    <AccessTokenContext.Provider value={{ accessToken, setAccessToken }}>
       {children}
     </AccessTokenContext.Provider>
   );

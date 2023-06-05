@@ -2,13 +2,15 @@
 import React from "react";
 
 import { Button } from "@/components";
-import { search } from "@/utils/spotify";
+import { getAccessToken, search } from "@/utils/spotify";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
+import { iTrack } from "@/config/types";
+import { API_KEYS } from "@/config/apiKeys";
 
 export function SearchBar() {
   const [searchTerm, setSearchTerm] = React.useState("");
-  const { accessToken } = React.useContext(AccessTokenContext);
+  const { accessToken, setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks } = React.useContext(TracksContext);
 
   const onSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +19,17 @@ export function SearchBar() {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (searchTerm === "" || !accessToken) return;
-    const tracks = await search(searchTerm, accessToken);
+    let tracks: iTrack[] = [];
+
+    try {
+      tracks = await search(searchTerm, accessToken);
+    } catch (err) {
+      console.log(err);
+      const token = await getAccessToken(API_KEYS.CLIENT_ID, API_KEYS.CLIENT_SECRET);
+      setAccessToken(token);
+      tracks = await search(searchTerm, accessToken);
+    }
+
     setTracks(tracks);
   };
 
