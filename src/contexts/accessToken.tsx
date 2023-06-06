@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 
-import { API_KEYS } from "@/config/apiKeys";
-import { getAccessToken, search } from "@/utils/spotify";
 import { useStorage } from "@/hooks/useStorage";
+import { getToken } from "@/utils/spotify";
 
 interface iAccessTokenContext {
   accessToken: string;
@@ -22,21 +21,10 @@ export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
   const [accessToken, setAccessToken] = useStorage("token");
 
   React.useEffect(() => {
-    const handleToken = async () => {
-      if (accessToken !== "") {
-        try {
-          const test = await search("test", accessToken);
-          return;
-        } catch (err) {
-          console.log(err);
-        }
-      }
+    const urlParams = new URLSearchParams(window.location.search);
+    let code = urlParams.get("code");
 
-      const token = await getAccessToken(API_KEYS.CLIENT_ID, API_KEYS.CLIENT_SECRET);
-      setAccessToken(token);
-    };
-
-    handleToken();
+    getToken(code)?.then(token => setAccessToken(token));
   }, []);
 
   return (
