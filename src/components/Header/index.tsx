@@ -14,7 +14,7 @@ export function Header() {
   const [theme, setTheme] = useStorage("theme", "dark");
   const { setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
-  const { setUsername } = React.useContext(UserContext);
+  const { setUser } = React.useContext(UserContext);
 
   React.useEffect(() => {
     if (theme === "dark") document.documentElement.classList.add("dark");
@@ -47,7 +47,7 @@ export function Header() {
     });
   };
   const onLogOutButtonClick = () => {
-    setUsername("");
+    setUser(null);
     setAccessToken("");
     setTracks([]);
     setPlaylist([]);

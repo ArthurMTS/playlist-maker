@@ -1,6 +1,7 @@
 export interface iTrack {
   id: string;
   name: string;
+  uri: string;
   album: {
     name: string;
     images: [{ url: string }];
@@ -11,4 +12,9 @@ export interface iTrack {
     },
   ];
   "preview_url": string | null;
+}
+
+export interface iUser {
+  id: string;
+  "display_name": string;
 }

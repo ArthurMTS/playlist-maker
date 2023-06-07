@@ -1,12 +1,12 @@
 import { API_KEYS } from "@/config/apiKeys";
 import { baseToken, redirectUri } from "@/config/consts";
 
-export const getToken = (code: string | null) => {
+export const getToken = async (code: string | null) => {
   let codeVerifier = localStorage.getItem("code_verifier");
 
   if (!code || !codeVerifier) return null;
 
-  let body = new URLSearchParams({
+  const body = new URLSearchParams({
     grant_type: "authorization_code",
     code: code,
     redirect_uri: redirectUri,
@@ -14,25 +14,21 @@ export const getToken = (code: string | null) => {
     code_verifier: codeVerifier,
   });
 
-  return fetch(baseToken, {
+  const requestParams = {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: body,
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("HTTP status " + response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      return data.access_token;
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
+  };
+
+  try {
+    return await fetch(baseToken, requestParams)
+      .then(response => response.json())
+      .then(data => data.access_token);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const search = async (searchTerm: string, accessToken: string) => {
@@ -58,6 +54,50 @@ export const getProfile = async (accessToken: string) => {
   };
 
   const result = await fetch("https://api.spotify.com/v1/me", requestParams);
+
+  return await result.json();
+};
+
+export const createPlaylist = async (
+  accessToken: string,
+  name: string,
+  userId: string,
+) => {
+  const requestParams = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  };
+
+  const result = await fetch(
+    `https://api.spotify.com/v1/users/${userId}/playlists`,
+    requestParams,
+  );
+
+  return await result.json();
+};
+
+export const populatePlaylist = async (
+  accessToken: string,
+  playlistId: string,
+  tracks: string[],
+) => {
+  const requestParams = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({uris: tracks}),
+  };
+
+  const result = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+    requestParams,
+  );
 
   return await result.json();
 };

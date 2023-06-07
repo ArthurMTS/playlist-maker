@@ -9,17 +9,17 @@ interface LoginProps {
 }
 
 export function Login({ onLogin, onLogout }: LoginProps) {
-  const { username } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
 
   return (
     <>
-      {!username ? (
-        <Button className="p-2" onClick={onLogin}>
+      {!user ? (
+        <Button className="text-xs p-1 md:p-2 md:text-sm" onClick={onLogin}>
           Log in
         </Button>
       ) : (
-        <p className="text-lg text-slate-100 text-mono">
-          {username} <Button className="p-1 text-sm" onClick={onLogout}>Log out</Button>
+        <p className="flex items-center justify-center gap-1 text-xs text-slate-100 text-mono md:text-base md:gap-2">
+          {user.display_name} <Button className="text-xs p-0 md:text-sm md:p-2" onClick={onLogout}>Log out</Button>
         </p>
       )}
     </>

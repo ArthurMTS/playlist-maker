@@ -3,10 +3,11 @@ import React from "react";
 import { AccessTokenContext } from "./accessToken";
 import { getProfile } from "@/utils/spotify";
 import { TracksContext } from "./tracks";
+import { iUser } from "@/config/types";
 
 interface iUserContext {
-  username: string;
-  setUsername: (token: string) => void;
+  user: iUser | null;
+  setUser: (user: iUser | null) => void;
 }
 
 interface UserProviderProps {
@@ -16,7 +17,7 @@ interface UserProviderProps {
 export const UserContext = React.createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [username, setUsername] = React.useState("");
+  const [user, setUser] = React.useState<iUser | null>(null);
   const { accessToken } = React.useContext(AccessTokenContext);
   const { setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
@@ -25,19 +26,19 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     if (accessToken) {
       try {
         getProfile(accessToken).then(result =>
-          setUsername(result.display_name),
+          setUser(result),
         );
       } catch (err) {
         setAccessToken("");
         setTracks([]);
         setPlaylist([]);
-        setUsername("");
+        setUser({} as iUser);
       }
     }
   }, [accessToken]);
 
   return (
-    <UserContext.Provider value={{ username, setUsername }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   );

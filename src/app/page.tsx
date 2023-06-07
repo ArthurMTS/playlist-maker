@@ -1,30 +1,56 @@
 "use client";
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Button, Header, SearchBar, ListCard } from "@/components";
 import { TracksContext } from "@/contexts/tracks";
+import { AccessTokenContext } from "@/contexts/accessToken";
 import { UserContext } from "@/contexts/user";
+import { createPlaylist, populatePlaylist } from "@/utils/spotify";
 
 export default function Home() {
   const [playlistName, setPlaylistName] = React.useState("New Playlist");
-  const { tracks, playlist, addToPlaylist, removeFromPlaylist } =
+  const [href, setHref] = React.useState("");
+  const { tracks, playlist, setPlaylist, addToPlaylist, removeFromPlaylist } =
     React.useContext(TracksContext);
-  const { username } = React.useContext(UserContext);
+  const { accessToken } = React.useContext(AccessTokenContext);
+  const { user } = React.useContext(UserContext);
 
+  const success = () => toast("Playlist create!");
+  const error = () => toast("Someting gone wrong!");
   const onPlaylistNameInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setPlaylistName(event.target.value);
   };
-  const onSavePlaylistButtonClick = () => {
-    if (playlist.length <= 0) return;
+  const onSavePlaylistButtonClick = async () => {
+    if (playlist.length <= 0 || !user) return;
+
+    try {
+      const newPlaylist = await createPlaylist(
+        accessToken,
+        playlistName,
+        user?.id,
+      );
+      const uris = playlist.map(track => track.uri);
+      await populatePlaylist(accessToken, newPlaylist.id, uris);
+      setHref(newPlaylist.external_urls.spotify);
+      setPlaylistName("New Playlist");
+      setPlaylist([]);
+      success();
+    } catch (err) {
+      console.error(err);
+      error();
+    }
   };
 
   return (
     <>
       <Header />
       <main className="flex min-h-screen flex-col items-center pt-20 dark:bg-slate-900">
-        {username !== "" ? (
+        <ToastContainer />
+        {user ? (
           <>
             <SearchBar />
 
@@ -55,6 +81,17 @@ export default function Home() {
                   <Button onClick={onSavePlaylistButtonClick}>
                     Save Spotify
                   </Button>
+                }
+                href={href}
+                redirect={
+                  <a
+                    className="text-lg text-slate-100 bg-indigo-700 p-1 rounded-xl hover:scale-105"
+                    href={href}
+                    target="_blank"
+                    onClick={() => setHref("")}
+                  >
+                    Take a look!
+                  </a>
                 }
                 onClick={removeFromPlaylist}
                 playlist

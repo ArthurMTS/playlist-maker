@@ -8,10 +8,12 @@ interface ListCardProps {
   onClick: (value: iTrack) => void;
   title: React.ReactNode;
   button?: React.ReactNode;
+  redirect?: React.ReactNode;
+  href?: string;
   playlist?: boolean;
 }
 
-export function ListCard({ list, onClick, title, button, playlist = false }: ListCardProps) {
+export function ListCard({ list, onClick, title, button, redirect, href, playlist = false }: ListCardProps) {
   return (
     <section className="flex flex-col items-center gap-1 mb-4">
       {title}
@@ -32,6 +34,7 @@ export function ListCard({ list, onClick, title, button, playlist = false }: Lis
       </div>
 
       {list.length > 0 ? button : ""}
+      {href !== "" ? redirect : ""}
     </section>
   );
 }
