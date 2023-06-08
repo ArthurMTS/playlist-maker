@@ -13,7 +13,15 @@ interface ListCardProps {
   playlist?: boolean;
 }
 
-export function ListCard({ list, onClick, title, button, redirect, href, playlist = false }: ListCardProps) {
+export function ListCard({
+  list,
+  onClick,
+  title,
+  button,
+  redirect,
+  href,
+  playlist = false,
+}: ListCardProps) {
   return (
     <section className="flex flex-col items-center gap-1 mb-4">
       {title}

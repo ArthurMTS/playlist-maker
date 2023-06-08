@@ -27,8 +27,14 @@ export function Track({
   return (
     <div className="flex items-center w-64 justify-between bg-slate-700 dark:bg-slate-950 rounded-xl p-2 sm:w-96">
       <div className="flex gap-2 items-center xl:gap-4">
-        <Button className="rounded-full p-1 bg-blue-500 hover:bg-blue-600" onClick={toggle}>
-          <img src={playing ? "/icons/pause.svg" : "/icons/play.svg"} alt="play icon" />
+        <Button
+          className="rounded-full p-1 bg-blue-500 hover:bg-blue-600"
+          onClick={toggle}
+        >
+          <img
+            src={playing ? "/icons/pause.svg" : "/icons/play.svg"}
+            alt="play icon"
+          />
         </Button>
 
         {src ? <img className="w-10" src={src} alt={name} /> : ""}

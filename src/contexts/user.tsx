@@ -25,9 +25,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   React.useEffect(() => {
     if (accessToken) {
       try {
-        getProfile(accessToken).then(result =>
-          setUser(result),
-        );
+        getProfile(accessToken).then(result => setUser(result));
       } catch (err) {
         setAccessToken("");
         setTracks([]);

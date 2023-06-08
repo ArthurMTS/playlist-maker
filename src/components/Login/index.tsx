@@ -19,7 +19,10 @@ export function Login({ onLogin, onLogout }: LoginProps) {
         </Button>
       ) : (
         <p className="flex items-center justify-center gap-1 text-xs text-slate-100 text-mono md:text-base md:gap-2">
-          {user.display_name} <Button className="text-xs p-1 md:text-sm md:p-2" onClick={onLogout}>Log out</Button>
+          {user.display_name}{" "}
+          <Button className="text-xs p-1 md:text-sm md:p-2" onClick={onLogout}>
+            Log out
+          </Button>
         </p>
       )}
     </div>

@@ -91,7 +91,7 @@ export const populatePlaylist = async (
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-    body: JSON.stringify({uris: tracks}),
+    body: JSON.stringify({ uris: tracks }),
   };
 
   const result = await fetch(

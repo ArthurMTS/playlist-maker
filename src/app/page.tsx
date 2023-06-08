@@ -78,7 +78,10 @@ export default function Home() {
                 }
                 list={playlist}
                 button={
-                  <Button className="p-1 mt-2" onClick={onSavePlaylistButtonClick}>
+                  <Button
+                    className="p-1 mt-2"
+                    onClick={onSavePlaylistButtonClick}
+                  >
                     Save Spotify
                   </Button>
                 }

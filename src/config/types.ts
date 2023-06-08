@@ -11,10 +11,10 @@ export interface iTrack {
       name: string;
     },
   ];
-  "preview_url": string | null;
+  preview_url: string | null;
 }
 
 export interface iUser {
   id: string;
-  "display_name": string;
+  display_name: string;
 }
