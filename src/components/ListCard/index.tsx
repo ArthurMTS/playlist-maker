@@ -18,7 +18,7 @@ export function ListCard({ list, onClick, title, button, redirect, href, playlis
     <section className="flex flex-col items-center gap-1 mb-4">
       {title}
 
-      <div className="flex flex-col gap-1 overflow-y-auto max-h-80 p-1 xl:gap-2 xl:p-2">
+      <div className="flex flex-col gap-1 overflow-y-auto max-h-60 p-1 lg:max-h-80 xl:gap-2 xl:p-2">
         {list.map(track => (
           <Track
             key={track.id}

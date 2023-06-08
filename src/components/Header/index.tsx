@@ -54,8 +54,8 @@ export function Header() {
   };
 
   return (
-    <header className="fixed flex justify-between px-5 items-center w-screen h-10 bg-slate-700 dark:bg-slate-950 sm:h-14">
-      <h1 className="text-slate-200 text-base font-mono sm:text-lg xl:text-3xl">
+    <header className="fixed flex flex-wrap justify-between px-5 items-center w-screen h-14 bg-slate-700 dark:bg-slate-950 sm:h-14">
+      <h1 className="text-slate-200 text-xs font-mono sm:text-lg xl:text-3xl">
         Make-a-'list
       </h1>
 
@@ -66,22 +66,22 @@ export function Header() {
           target="_blank"
         >
           <img
-            className="xl:w-4"
+            className="w-3 h-3 xl:w-4"
             src="/icons/github.svg"
             width={15}
             height={15}
           />
         </a>
         <img
-          className="cursor-pointer bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800 xl:w-6"
+          className="cursor-pointer w-5 h-5 bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800 xl:w-6"
           src={theme === "dark" ? "/icons/sun.svg" : "/icons/moon.svg"}
           alt="theme toggler"
           width={20}
           height={20}
           onClick={toggleTheme}
         />
-        <Login onLogin={onLogInButtonClick} onLogout={onLogOutButtonClick} />
       </div>
+      <Login onLogin={onLogInButtonClick} onLogout={onLogOutButtonClick} />
     </header>
   );
 }
