@@ -17,4 +17,9 @@ export interface iTrack {
 export interface iUser {
   id: string;
   display_name: string;
+  images: {
+    url: string;
+    height: number;
+    width: number;
+  }[];
 }

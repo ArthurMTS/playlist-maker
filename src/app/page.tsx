@@ -10,7 +10,7 @@ import { UserContext } from "@/contexts/user";
 import { createPlaylist, populatePlaylist } from "@/utils/spotify";
 
 export default function Home() {
-  const [playlistName, setPlaylistName] = React.useState("New Playlist");
+  const [title, setTitle] = React.useState("New Playlist");
   const [href, setHref] = React.useState("");
   const { tracks, playlist, setPlaylist, addToPlaylist, removeFromPlaylist } =
     React.useContext(TracksContext);
@@ -19,10 +19,10 @@ export default function Home() {
 
   const success = () => toast("Playlist create!");
   const error = () => toast("Someting gone wrong!");
-  const onPlaylistNameInputChange = (
+  const ontitleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setPlaylistName(event.target.value);
+    setTitle(event.target.value);
   };
   const onSavePlaylistButtonClick = async () => {
     if (playlist.length <= 0 || !user) return;
@@ -30,13 +30,13 @@ export default function Home() {
     try {
       const newPlaylist = await createPlaylist(
         accessToken,
-        playlistName,
+        title,
         user?.id,
       );
       const uris = playlist.map(track => track.uri);
       await populatePlaylist(accessToken, newPlaylist.id, uris);
       setHref(newPlaylist.external_urls.spotify);
-      setPlaylistName("New Playlist");
+      setTitle("New Playlist");
       setPlaylist([]);
       success();
     } catch (err) {
@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center pt-20 dark:bg-slate-900">
+      <main className="flex min-h-screen flex-col items-center pt-20 bg-slate-200 dark:bg-slate-950">
         <ToastContainer />
         {user ? (
           <>
@@ -72,8 +72,8 @@ export default function Home() {
                     type="text"
                     title="Click to change playlist name"
                     placeholder="Playlist Title"
-                    value={playlistName}
-                    onChange={onPlaylistNameInputChange}
+                    value={title}
+                    onChange={ontitleInputChange}
                   />
                 }
                 list={playlist}
