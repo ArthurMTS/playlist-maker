@@ -54,7 +54,7 @@ export default function Home() {
           <>
             <SearchBar />
 
-            <div className="flex gap-2 mt-2 flex-col lg:flex-row xl:mt-8">
+            <div className="flex gap-2 mt-2 flex-col lg:flex-row">
               <ListCard
                 title={
                   <h2 className="p-2 text-base font-mono font-bold dark:text-slate-100 sm:text-lg xl:text-3xl">
