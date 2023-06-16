@@ -54,10 +54,10 @@ export default function Home() {
           <>
             <SearchBar />
 
-            <div className="flex gap-2 mt-2 flex-col lg:flex-row">
+            <div className="flex gap-10 mt-2 flex-col lg:flex-row w-full justify-center">
               <ListCard
                 title={
-                  <h2 className="p-2 text-base font-mono font-bold dark:text-slate-100 sm:text-lg xl:text-3xl">
+                  <h2 className="p-2 text-xl font-mono font-bold dark:text-slate-100">
                     Results
                   </h2>
                 }
@@ -68,7 +68,7 @@ export default function Home() {
               <ListCard
                 title={
                   <input
-                    className="bg-transparent font-bold font-mono cursor-pointer text-center outline-0 text-base dark:text-slate-100 border-none rounded-xl p-2 focus:border-indigo-700 sm:text-lg xl:text-3xl"
+                    className="bg-transparent font-bold font-mono cursor-pointer text-center outline-0 text-xl dark:text-slate-100 border-none rounded-xl p-2 focus:border-indigo-700"
                     type="text"
                     title="Click to change playlist name"
                     placeholder="Playlist Title"
@@ -79,7 +79,7 @@ export default function Home() {
                 list={playlist}
                 button={
                   <Button
-                    className="p-1 mt-2"
+                    className="p-2 font-mono mt-2 rounded"
                     onClick={onSavePlaylistButtonClick}
                   >
                     Save Spotify
@@ -88,7 +88,7 @@ export default function Home() {
                 href={href}
                 redirect={
                   <a
-                    className="text-lg text-slate-100 bg-indigo-700 p-1 rounded-xl hover:scale-105"
+                    className="text-lg text-slate-100 bg-indigo-700 p-2 font-mono rounded-full hover:scale-105"
                     href={href}
                     target="_blank"
                     onClick={() => setHref("")}

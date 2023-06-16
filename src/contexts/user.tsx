@@ -23,16 +23,19 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
 
   React.useEffect(() => {
-    if (accessToken) {
+    const fetchUser = async () => {
+      if (!accessToken || accessToken === "") return;
       try {
-        getProfile(accessToken).then(result => setUser(result));
+        const response = await getProfile(accessToken);
+        setUser(response);
       } catch (err) {
         setAccessToken("");
         setTracks([]);
         setPlaylist([]);
-        setUser({} as iUser);
+        setUser(null);
       }
-    }
+    };
+    fetchUser();
   }, [accessToken]);
 
   return (

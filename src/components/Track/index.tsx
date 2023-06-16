@@ -25,10 +25,10 @@ export function Track({
   const [playing, toggle] = useAudio(preview_url || "");
 
   return (
-    <div className="flex items-center w-64 justify-between bg-slate-700 dark:bg-slate-950 rounded-xl p-2 sm:w-96">
-      <div className="flex gap-2 items-center xl:gap-4">
+    <div className="flex items-center justify-between bg-transparent hover:bg-slate-900 rounded-xl p-1 w-full">
+      <div className="flex gap-4 items-center">
         <Button
-          className="rounded-full p-1 bg-blue-500 hover:bg-blue-600"
+          className="rounded-full p-1 bg-transparent hover:bg-transparent"
           onClick={toggle}
         >
           <img
@@ -40,14 +40,16 @@ export function Track({
         {src ? <img className="w-10" src={src} alt={name} /> : ""}
 
         <div className="flex flex-col">
-          <p title={name} className="text-slate-100 text-sm xl:text-base">
-            {name.length > 15 ? name.slice(0, 15) + "..." : name}
+          <p title={name} className="text-slate-100 font-mono text-sm xl:text-base">
+            {name.length > 25 ? name.slice(0, 25) + "..." : name}
           </p>
           <div className="gap-2 items-center hidden sm:flex">
-            <p className="text-slate-300 text-xs">{artist}</p>
+            <p className="text-slate-300 text-xs">
+            {artist.length > 25 ? artist.slice(0, 25) + "..." : artist}
+            </p>
             <span className="text-slate-300">|</span>
             <p title={album} className="text-slate-300 text-xs">
-              {album.length > 15 ? album.slice(0, 15) + "..." : album}
+              {album.length > 25 ? album.slice(0, 25) + "..." : album}
             </p>
           </div>
         </div>
@@ -58,7 +60,7 @@ export function Track({
           <img src="/icons/plus.svg" alt="Add icon" />
         </Button>
       ) : type === "remove" ? (
-        <Button className="p-1 bg-red-600 hover:bg-red-700" onClick={onClick}>
+        <Button className="p-1 bg-rose-600 hover:bg-red-700" onClick={onClick}>
           <img src="/icons/trash.svg" alt="Remove icon" />
         </Button>
       ) : (

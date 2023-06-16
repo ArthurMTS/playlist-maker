@@ -23,10 +23,10 @@ export function ListCard({
   playlist = false,
 }: ListCardProps) {
   return (
-    <section className="flex flex-col items-center gap-1 mb-4">
+    <section className="flex flex-col items-center gap-1 mb-2 w-1/3">
       {title}
 
-      <div className="flex flex-col gap-1 overflow-y-auto max-h-60 p-1 lg:max-h-80 xl:gap-2 xl:p-2">
+      <div className="flex flex-col overflow-y-auto p-1 max-h-80 w-full">
         {list.map(track => (
           <Track
             key={track.id}
