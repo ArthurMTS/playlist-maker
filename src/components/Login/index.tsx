@@ -21,9 +21,9 @@ export function Login({ onLogin, onLogout }: LoginProps) {
           <img src="/icons/log-in.svg" alt="log in icon" title="Log In" />
         </Button>
       ) : (
-        <p className="flex items-center justify-center gap-1 text-xs text-slate-400 text-mono md:text-sm md:gap-2">
+        <p className="flex items-center justify-center gap-1 text-xs text-slate-600 dark:text-slate-400 text-mono md:text-sm md:gap-2">
           <img
-            className="w-8 rounded"
+            className="w-8 rounded bg-slate-900 dark:bg-transparent"
             src={
               user?.images?.length > 0 ? user?.images[0]?.url : "/icons/user.svg"
             }
@@ -34,7 +34,7 @@ export function Login({ onLogin, onLogout }: LoginProps) {
             className="bg-transparent hover:bg-transparent"
             onClick={onLogout}
           >
-            <img src="/icons/log-out.svg" alt="log Out icon" title="Log Out" />
+            <img className="bg-slate-900 p-2 rounded-full" src="/icons/log-out.svg" alt="log Out icon" title="Log Out" />
           </Button>
         </p>
       )}

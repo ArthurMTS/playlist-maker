@@ -55,14 +55,14 @@ export function Header() {
 
   return (
     <header className="fixed flex flex-wrap justify-between px-5 items-center w-screen h-14 bg-slate-200 dark:bg-slate-950 sm:h-14">
-      <h1 className="text-slate-200 text-lg font-mono flex gap-2">
-        <img src="/icons/headphones.svg" alt="headphone logo" />
+      <h1 className="flex items-center text-slate-750 text-lg font-mono flex gap-2 dark:text-slate-200">
+        <img className="bg-slate-900 p-2 rounded-full" src="/icons/headphones.svg" alt="headphone logo" />
         Make-a-'list
       </h1>
 
       <div className="flex items-center justify-center gap-2 xl:gap-4">
         <a
-          className="cursor-pointer p-1 transition-colors rounded-lg hover:bg-slate-800"
+          className="cursor-pointer bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800"
           href="https://github.com/ArthurMTS"
           target="_blank"
         >

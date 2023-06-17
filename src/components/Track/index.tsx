@@ -25,7 +25,7 @@ export function Track({
   const [playing, toggle] = useAudio(preview_url || "");
 
   return (
-    <div className="flex items-center justify-between bg-transparent hover:bg-slate-900 rounded-xl p-1 w-full">
+    <div className="flex items-center justify-between bg-slate-950 hover:bg-slate-900 rounded-xl p-1 w-full">
       <div className="flex gap-4 items-center">
         <Button
           className="rounded-full p-1 bg-transparent hover:bg-transparent"
