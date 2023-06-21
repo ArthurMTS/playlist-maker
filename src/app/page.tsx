@@ -3,7 +3,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Button, Header, SearchBar, ListCard } from "@/components";
+import { Button, Header, ListCard } from "@/components";
 import { TracksContext } from "@/contexts/tracks";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { UserContext } from "@/contexts/user";
@@ -19,21 +19,15 @@ export default function Home() {
 
   const success = () => toast("Playlist create!");
   const error = () => toast("Someting gone wrong!");
-  const ontitleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const ontitleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
   const onSavePlaylistButtonClick = async () => {
     if (playlist.length <= 0 || !user) return;
 
     try {
-      const newPlaylist = await createPlaylist(
-        accessToken,
-        title,
-        user?.id,
-      );
-      const uris = playlist.map(track => track.uri);
+      const newPlaylist = await createPlaylist(accessToken, title, user?.id);
+      const uris = playlist.map((track) => track.uri);
       await populatePlaylist(accessToken, newPlaylist.id, uris);
       setHref(newPlaylist.external_urls.spotify);
       setTitle("New Playlist");
@@ -48,13 +42,11 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center pt-20 bg-slate-200 dark:bg-slate-950">
+      <main className="min-h-screen flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24">
         <ToastContainer />
         {user ? (
           <>
-            <SearchBar />
-
-            <div className="flex gap-10 mt-2 flex-col lg:flex-row w-full justify-center">
+            <div className="flex gap-10 my-4 flex-col lg:flex-row w-full justify-center">
               <ListCard
                 title={
                   <h2 className="p-2 text-xl font-mono font-bold dark:text-slate-100">

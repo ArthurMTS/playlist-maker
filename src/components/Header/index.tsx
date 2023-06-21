@@ -2,7 +2,7 @@
 import React from "react";
 
 import { useStorage } from "@/hooks/useStorage";
-import { Login } from "@/components";
+import { Login, SearchBar } from "@/components";
 import { generateCodeChallenge, generateRandomString } from "@/utils/functions";
 import { API_KEYS } from "@/config/apiKeys";
 import { baseAuth, redirectUri, scope } from "@/config/consts";
@@ -14,7 +14,7 @@ export function Header() {
   const [theme, setTheme] = useStorage("theme", "dark");
   const { setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
-  const { setUser } = React.useContext(UserContext);
+  const { user, setUser } = React.useContext(UserContext);
 
   React.useEffect(() => {
     if (theme === "dark") document.documentElement.classList.add("dark");
@@ -54,7 +54,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed flex flex-wrap justify-between px-5 items-center w-screen h-14 bg-slate-200 dark:bg-slate-950 sm:h-14">
+    <header className="fixed flex flex-wrap justify-between px-5 pt-2 items-center w-screen bg-slate-200 dark:bg-slate-950">
       <h1 className="flex items-center text-slate-750 text-lg font-mono flex gap-2 dark:text-slate-200">
         <img className="bg-slate-900 p-2 rounded-full" src="/icons/headphones.svg" alt="headphone logo" />
         Make-a-'list
@@ -82,7 +82,11 @@ export function Header() {
           onClick={toggleTheme}
         />
       </div>
-      <Login onLogin={onLogInButtonClick} onLogout={onLogOutButtonClick} />
+      <Login
+        onLogin={onLogInButtonClick}
+        onLogout={onLogOutButtonClick}
+      />
+      {user ? <SearchBar /> : ""}
     </header>
   );
 }
