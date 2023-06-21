@@ -27,15 +27,15 @@ export function ListCard({
       {title}
 
       <div className="flex flex-col overflow-y-auto p-1 max-h-80 w-full gap-1 sm:w-9/12 md:w-1/2 lg:w-5/6">
-        {list.map(track => (
+        {list.map((track) => (
           <Track
             key={track.id}
             name={track.name}
-            src={track.album.images[0]?.url}
+            image={track.album.images[0]?.url}
             artist={track.artists[0]?.name}
             album={track.album.name}
             preview_url={track.preview_url}
-            type={playlist ? "remove" : "add"}
+            remove={playlist}
             onClick={() => onClick(track)}
           />
         ))}

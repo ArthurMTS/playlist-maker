@@ -23,14 +23,14 @@ export const TracksProvider = ({ children }: TracksProviderProps) => {
   const [playlist, setPlaylist] = React.useState<iTrack[]>([]);
 
   const addToPlaylist = (newTrack: iTrack) => {
-    const isInTheList = playlist.some(track => track.id === newTrack.id);
+    const isInTheList = playlist.some((track) => track.id === newTrack.id);
     if (isInTheList) return;
     const list = [...playlist];
     list.push(newTrack);
     setPlaylist(list);
   };
   const removeFromPlaylist = (trackToRemove: iTrack) => {
-    const list = playlist.filter(track => track.id !== trackToRemove.id);
+    const list = playlist.filter((track) => track.id !== trackToRemove.id);
     setPlaylist(list);
   };
 

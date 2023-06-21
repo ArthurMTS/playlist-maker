@@ -22,7 +22,10 @@ export function SearchBar() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="flex gap-2 mt-2 w-full border-b-2 pb-4 border-indigo-700">
+    <form
+      onSubmit={onSubmit}
+      className="flex gap-2 mt-2 w-full border-b-2 pb-4 border-indigo-700"
+    >
       <input
         className="border text-base w-60 outline-indigo-700 ml-auto border-indigo-700 rounded py-1 px-2 focus:outline-none dark:bg-slate-900 dark:text-slate-100 sm:w-72 sm:text-lg"
         type="text"
@@ -33,7 +36,7 @@ export function SearchBar() {
         required
       />
       <Button className="p-1 mr-auto sm:p-2">
-        <img src="/icons/search.svg" alt="" />
+        <img src="/icons/search.svg" alt="search bar button" />
       </Button>
     </form>
   );

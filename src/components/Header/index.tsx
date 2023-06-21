@@ -12,8 +12,8 @@ import { UserContext } from "@/contexts/user";
 
 export function Header() {
   const [theme, setTheme] = useStorage("theme", "dark");
-  const { setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
+  const { setAccessToken } = React.useContext(AccessTokenContext);
   const { user, setUser } = React.useContext(UserContext);
 
   React.useEffect(() => {
@@ -28,7 +28,7 @@ export function Header() {
   const onLogInButtonClick = () => {
     let codeVerifier = generateRandomString(128);
 
-    generateCodeChallenge(codeVerifier).then(codeChallenge => {
+    generateCodeChallenge(codeVerifier).then((codeChallenge) => {
       let state = generateRandomString(16);
 
       localStorage.setItem("code_verifier", codeVerifier);
@@ -56,7 +56,11 @@ export function Header() {
   return (
     <header className="fixed flex flex-wrap justify-between px-5 pt-2 items-center w-screen bg-slate-200 dark:bg-slate-950">
       <h1 className="flex items-center text-slate-750 text-lg font-mono flex gap-2 dark:text-slate-200">
-        <img className="bg-slate-900 p-2 rounded-full" src="/icons/headphones.svg" alt="headphone logo" />
+        <img
+          className="bg-slate-900 p-2 rounded-full"
+          src="/icons/headphones.svg"
+          alt="headphone logo"
+        />
         Make-a-'list
       </h1>
 
@@ -82,10 +86,7 @@ export function Header() {
           onClick={toggleTheme}
         />
       </div>
-      <Login
-        onLogin={onLogInButtonClick}
-        onLogout={onLogOutButtonClick}
-      />
+      <Login onLogin={onLogInButtonClick} onLogout={onLogOutButtonClick} />
       {user ? <SearchBar /> : ""}
     </header>
   );

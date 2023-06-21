@@ -9,7 +9,7 @@ export interface iTrack {
   artists: [
     {
       name: string;
-    },
+    }
   ];
   preview_url: string | null;
 }

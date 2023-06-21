@@ -1,25 +1,25 @@
 import React from "react";
 
-import { Button } from "@/components";
+import { Button, TrackText, TrackTitle } from "@/components";
 import { useAudio } from "@/hooks/useAudio";
 import { getTextSize } from "@/utils/functions";
 
 interface TrackProps {
   name: string;
-  src?: string;
+  image?: string;
   artist: string;
   album: string;
   preview_url: string | null;
-  type: "add" | "remove";
+  remove?: boolean;
   onClick?: () => void;
 }
 
 export function Track({
   name,
-  src,
+  image,
   artist,
   album,
-  type,
+  remove,
   onClick,
   preview_url,
 }: TrackProps) {
@@ -39,50 +39,35 @@ export function Track({
       <div className="flex gap-4 items-center">
         <Button
           className="rounded-full p-1 bg-transparent hover:bg-transparent"
-          onClick={toggle}
+          onClick={typeof toggle === "boolean" ? () => {} : toggle}
         >
           <img
             src={playing ? "/icons/pause.svg" : "/icons/play.svg"}
-            alt="play icon"
+            alt="toggle playing"
           />
         </Button>
 
-        {src ? <img className="w-10" src={src} alt={name} /> : ""}
+        {image ? <img className="w-10" src={image} alt={name} /> : ""}
 
         <div className="flex flex-col">
-          <p
-            title={name}
-            className="text-slate-100 font-mono text-sm xl:text-base"
-          >
-            {name.length > textSize ? name.slice(0, textSize) + "..." : name}
-          </p>
+          <TrackTitle name={name} textSize={textSize} />
           <div className="gap-2 items-center hidden sm:flex">
-            <p className="text-slate-300 text-xs">
-              {artist.length > textSize
-                ? artist.slice(0, textSize) + "..."
-                : artist}
-            </p>
+            <TrackText text={artist} textSize={textSize} />
             <span className="text-slate-300">|</span>
-            <p title={album} className="text-slate-300 text-xs">
-              {album.length > textSize
-                ? album.slice(0, textSize) + "..."
-                : album}
-            </p>
+            <TrackText text={album} textSize={textSize} />
           </div>
         </div>
       </div>
 
-      {type === "add" ? (
-        <Button className="p-1" onClick={onClick}>
-          <img src="/icons/plus.svg" alt="Add icon" />
-        </Button>
-      ) : type === "remove" ? (
-        <Button className="p-1 bg-rose-600 hover:bg-red-700" onClick={onClick}>
-          <img src="/icons/trash.svg" alt="Remove icon" />
-        </Button>
-      ) : (
-        ""
-      )}
+      <Button
+        className={`p-1 ${remove ? "bg-rose-600 hover:bg-red-700" : ""}`}
+        onClick={onClick}
+      >
+        <img
+          src={remove ? "/icons/trash.svg" : "/icons/plus.svg"}
+          alt={remove ? "Remove icon" : "Add icon"}
+        />
+      </Button>
     </div>
   );
 }

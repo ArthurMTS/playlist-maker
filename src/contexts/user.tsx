@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { AccessTokenContext } from "./accessToken";
+
+import { AccessTokenContext } from "@/contexts/accessToken";
+import { TracksContext } from "@/contexts/tracks";
 import { getProfile } from "@/utils/spotify";
-import { TracksContext } from "./tracks";
 import { iUser } from "@/config/types";
 
 interface iUserContext {
@@ -18,17 +19,17 @@ export const UserContext = React.createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = React.useState<iUser | null>(null);
-  const { accessToken } = React.useContext(AccessTokenContext);
-  const { setAccessToken } = React.useContext(AccessTokenContext);
+  const { accessToken, setAccessToken } = React.useContext(AccessTokenContext);
   const { setTracks, setPlaylist } = React.useContext(TracksContext);
 
   React.useEffect(() => {
     const fetchUser = async () => {
       if (!accessToken || accessToken === "") return;
       try {
-        const response = await getProfile(accessToken);
-        setUser(response);
+        const user = await getProfile(accessToken);
+        setUser(user);
       } catch (err) {
+        console.error(err);
         setAccessToken("");
         setTracks([]);
         setPlaylist([]);

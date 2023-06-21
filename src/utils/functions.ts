@@ -1,4 +1,4 @@
-export function generateRandomString(length: number) {
+export const generateRandomString = (length: number) => {
   let text = "";
   let possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -8,7 +8,7 @@ export function generateRandomString(length: number) {
   return text;
 }
 
-export async function generateCodeChallenge(codeVerifier: string) {
+export const generateCodeChallenge = async (codeVerifier: string) => {
   function base64encode(string: string) {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(string)))
       .replace(/\+/g, "-")
@@ -28,7 +28,7 @@ export const getTextSize = () => {
 
   const width = window.innerWidth;
 
-  if (width >= 1280) return 30;
+  if (width >= 1280) return 35;
   else if (width >= 1024) return 25;
   else if (width >= 450) return 25;
   else if (width >= 440) return 24;

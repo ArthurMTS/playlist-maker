@@ -14,17 +14,25 @@ interface AccessTokenProviderProps {
 }
 
 export const AccessTokenContext = React.createContext(
-  {} as iAccessTokenContext,
+  {} as iAccessTokenContext
 );
 
 export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
   const [accessToken, setAccessToken] = useStorage("token");
 
   React.useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    let code = urlParams.get("code");
+    const fetchToken = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      let code = urlParams.get("code");
 
-    getToken(code)?.then(token => setAccessToken(token));
+      try {
+        const token = await getToken(code);
+        setAccessToken(token);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchToken();
   }, []);
 
   return (
