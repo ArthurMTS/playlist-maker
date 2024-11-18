@@ -4,7 +4,6 @@ import React from "react";
 import { useStorage } from "@/hooks/useStorage";
 import { Login, SearchBar } from "@/components";
 import { generateCodeChallenge, generateRandomString } from "@/utils/functions";
-import { API_KEYS } from "@/config/apiKeys";
 import { baseAuth, redirectUri, scope } from "@/config/consts";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
@@ -35,7 +34,7 @@ export function Header() {
 
       let args = new URLSearchParams({
         response_type: "code",
-        client_id: API_KEYS.CLIENT_ID,
+        client_id: process.env.NEXT_PUBLIC_ENV_LOCAL_CLIENT_ID || "",
         scope: scope,
         redirect_uri: redirectUri,
         state: state,

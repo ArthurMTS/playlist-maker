@@ -1,4 +1,3 @@
-import { API_KEYS } from "@/config/apiKeys";
 import { baseToken, redirectUri } from "@/config/consts";
 
 export const getToken = async (code: string | null) => {
@@ -10,7 +9,7 @@ export const getToken = async (code: string | null) => {
     grant_type: "authorization_code",
     code: code,
     redirect_uri: redirectUri,
-    client_id: API_KEYS.CLIENT_ID,
+    client_id: process.env.NEXT_PUBLIC_ENV_LOCAL_CLIENT_ID || "",
     code_verifier: codeVerifier,
   });
 
