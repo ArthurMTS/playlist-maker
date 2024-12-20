@@ -8,6 +8,7 @@ import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
 import { UserContext } from "@/contexts/user";
 import { createPlaylist, populatePlaylist } from "@/utils/spotify";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const [title, setTitle] = React.useState("New Playlist");
@@ -41,7 +42,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="min-h-screen flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24">
+      <main className="h-screen flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24">
         <ToastContainer />
         {user ? (
           <div className="flex gap-10 my-4 flex-col lg:flex-row w-full justify-center">
@@ -94,6 +95,7 @@ export default function Home() {
           ""
         )}
       </main>
+      <Footer />
     </>
   );
 }

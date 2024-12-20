@@ -12,7 +12,7 @@ export function Login({ onLogin, onLogout }: LoginProps) {
   const { user } = React.useContext(UserContext);
 
   return (
-    <div className="flex items-center gap-2 m-auto sm:m-0">
+    <div className="flex items-center gap-2 mr-0 m-auto m-0">
       {user ? (
         <p className="flex items-center justify-center gap-1 text-xs text-slate-600 dark:text-slate-400 text-mono md:text-sm md:gap-2">
           <img
