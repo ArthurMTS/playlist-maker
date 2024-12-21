@@ -1,14 +1,20 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import { useStorage } from "@/hooks/useStorage";
 
 export function Footer() {
   const [theme, setTheme] = useStorage("theme", "dark");
+  const [icon, setIcon] = useState("/icons/sun.svg");
 
   React.useEffect(() => {
-    if (theme === "dark") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      setIcon("/icons/sun.svg");
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIcon("/icons/moon.svg");
+    }
   }, [theme]);
 
   const toggleTheme = () => {
@@ -32,7 +38,7 @@ export function Footer() {
       </a>
       <img
         className="cursor-pointer w-6 h-6 bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800"
-        src={theme === "dark" ? "/icons/sun.svg" : "/icons/moon.svg"}
+        src={icon}
         alt="theme toggler"
         onClick={toggleTheme}
       />
