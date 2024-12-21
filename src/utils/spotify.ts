@@ -1,9 +1,9 @@
 import { baseToken, redirectUri } from "@/config/consts";
 
-export const getToken = async (code: string | null) => {
+export const getToken = async (code: string): Promise<string> => {
   let codeVerifier = localStorage.getItem("code_verifier");
 
-  if (!code || !codeVerifier) return null;
+  if (!codeVerifier) return "";
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",
@@ -13,7 +13,7 @@ export const getToken = async (code: string | null) => {
     code_verifier: codeVerifier,
   });
 
-  const requestParams = {
+  const payload = {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21,10 +21,11 @@ export const getToken = async (code: string | null) => {
     body: body,
   };
 
-  const response = await fetch(baseToken, requestParams).then((response) =>
+  const response = await fetch(baseToken, payload).then((response) =>
     response.json()
   );
 
+  localStorage.setItem("access_token", response.access_token);
   return response.access_token;
 };
 

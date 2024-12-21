@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="h-screen flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24">
+      <main className="h-full flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24 sm:h-screen">
         <ToastContainer />
         {user ? (
           <div className="flex gap-10 my-4 flex-col lg:flex-row w-full justify-center">

@@ -1,26 +1,20 @@
 export const generateRandomString = (length: number) => {
-  let text = "";
-  let possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (let i = 0; i < length; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  return text;
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const values = crypto.getRandomValues(new Uint8Array(length));
+  return values.reduce((acc, x) => acc + possible[x % possible.length], "");
 }
 
-export const generateCodeChallenge = async (codeVerifier: string) => {
-  function base64encode(string: string) {
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(string)))
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
-  }
+export const sha256 = async (plain: string) => {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(plain)
+  return window.crypto.subtle.digest("SHA-256", data)
+}
 
-  const encoder = new TextEncoder();
-  const data = encoder.encode(codeVerifier);
-  const digest = await window.crypto.subtle.digest("SHA-256", data);
-
-  return base64encode(digest);
+export const base64encode = (string: ArrayLike<number> | ArrayBuffer) => {
+  return btoa(String.fromCharCode(...new Uint8Array(string)))
+  .replace(/=/g, "")
+  .replace(/\+/g, "-")
+  .replace(/\//g, "_");
 }
 
 export const getTextSize = () => {

@@ -2,7 +2,7 @@
 import React from "react";
 
 import { Login, SearchBar } from "@/components";
-import { generateCodeChallenge, generateRandomString } from "@/utils/functions";
+import { base64encode, generateRandomString, sha256 } from "@/utils/functions";
 import { baseAuth, redirectUri, scope } from "@/config/consts";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
@@ -13,32 +13,34 @@ export function Header() {
   const { setAccessToken } = React.useContext(AccessTokenContext);
   const { user, setUser } = React.useContext(UserContext);
 
-  const onLogInButtonClick = () => {
-    let codeVerifier = generateRandomString(128);
+  const onLogInButtonClick = async () => {
+    const codeVerifier = generateRandomString(64);
+    const hashed = await sha256(codeVerifier);
+    const codeChallenge = base64encode(hashed);
 
-    generateCodeChallenge(codeVerifier).then((codeChallenge) => {
-      let state = generateRandomString(16);
+    window.localStorage.setItem("code_verifier", codeVerifier);
+    const authUrl = new URL(baseAuth);
 
-      localStorage.setItem("code_verifier", codeVerifier);
+    const params =  {
+      response_type: "code",
+      client_id: process.env.NEXT_PUBLIC_ENV_LOCAL_CLIENT_ID || "",
+      scope,
+      code_challenge_method: "S256",
+      code_challenge: codeChallenge,
+      redirect_uri: redirectUri,
+    }
 
-      let args = new URLSearchParams({
-        response_type: "code",
-        client_id: process.env.NEXT_PUBLIC_ENV_LOCAL_CLIENT_ID || "",
-        scope: scope,
-        redirect_uri: redirectUri,
-        state: state,
-        code_challenge_method: "S256",
-        code_challenge: codeChallenge,
-      });
-
-      window.location.href = baseAuth + "?" + args;
-    });
+    authUrl.search = new URLSearchParams(params).toString();
+    window.location.href = authUrl.toString();
   };
+
   const onLogOutButtonClick = () => {
     setUser(null);
     setAccessToken("");
     setTracks([]);
     setPlaylist([]);
+    localStorage.removeItem("code_verifier");
+    localStorage.removeItem("access_token");
   };
 
   return (

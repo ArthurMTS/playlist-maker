@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import { useStorage } from "@/hooks/useStorage";
 import { getToken } from "@/utils/spotify";
@@ -18,21 +18,26 @@ export const AccessTokenContext = React.createContext(
 );
 
 export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
-  const [accessToken, setAccessToken] = useStorage("token");
+  const [accessToken, setAccessToken] = useState("");
 
   React.useEffect(() => {
     const fetchToken = async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      let code = urlParams.get("code");
+      const code = urlParams.get("code");
+
+      if (!code) return;
 
       try {
         const token = await getToken(code);
         setAccessToken(token);
-      } catch (err) {
+      } catch(err) {
         console.error(err);
       }
     };
-    fetchToken();
+    
+    const token = localStorage.getItem("access_token");
+    if (token) setAccessToken(token);
+    else fetchToken();
   }, []);
 
   return (
