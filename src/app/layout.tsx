@@ -22,6 +22,9 @@ export default function RootLayout({
       <TracksProvider>
         <UserProvider>
           <html lang="en">
+            <head>
+              <link rel="icon" href="/icons/headphones.svg" sizes="any" />
+            </head>
             <body className={inter.className}>{children}</body>
           </html>
         </UserProvider>
