@@ -23,7 +23,7 @@ export default function Home() {
   const ontitleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onSavePlaylistButtonClick = async () => {
-    if (playlist.length <= 0 || !user) return;
+    if (playlist.length <= 0 || !user || !accessToken) return;
 
     try {
       const newPlaylist = await createPlaylist(accessToken, title, user?.id);
@@ -42,10 +42,10 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="h-full flex flex-col items-center pt-36 bg-slate-200 dark:bg-slate-950 sm:pt-24 sm:h-screen">
+      <main className="h-full min-h-screen flex bg-slate-200 dark:bg-slate-950 lg:min-h-[74.6vh]">
         <ToastContainer />
         {user ? (
-          <div className="flex gap-10 my-4 flex-col lg:flex-row w-full justify-center">
+          <div className="flex gap-10 mt-4 flex-col lg:flex-row w-full lg:justify-center">
             <ListCard
               title={
                 <h2 className="p-2 text-xl font-mono font-bold dark:text-slate-100">

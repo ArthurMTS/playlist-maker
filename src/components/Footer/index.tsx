@@ -23,7 +23,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full p-2 flex absolute bottom-0 items-center justify-center gap-2 xl:gap-4">
+    <footer className="w-full bg-slate-200 dark:bg-slate-950 p-2 flex items-center justify-center gap-2 sm:mt-auto xl:gap-4">
       <a
         className="cursor-pointer bg-slate-900 p-1 transition-colors rounded-lg hover:bg-slate-800"
         href="https://github.com/ArthurMTS"

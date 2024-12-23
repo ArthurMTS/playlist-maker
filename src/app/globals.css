@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 ::-webkit-scrollbar {
   height: 2px;
   width: 10px;

@@ -44,8 +44,8 @@ export function Header() {
   };
 
   return (
-    <header className="fixed flex flex-wrap justify-between px-5 pt-2 items-center w-screen bg-slate-200 dark:bg-slate-950">
-      <h1 className="flex items-center text-slate-750 text-xl font-mono flex gap-2 dark:text-slate-200">
+    <header className="flex flex-wrap justify-between px-5 pt-2 items-center w-screen bg-slate-200 dark:bg-slate-950">
+      <h1 className="flex items-center text-slate-750 text-sm sm:text-xl font-mono flex gap-2 dark:text-slate-200">
         <img
           className="bg-slate-900 p-2 rounded-full"
           src="/icons/headphones.svg"
