@@ -24,7 +24,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const fetchUser = async () => {
 
       if (!accessToken) return;
-
+      
       try {
         const user = await getProfile(accessToken);
         setUser(user);

@@ -3,13 +3,13 @@ import { baseToken, redirectUri } from "@/config/consts";
 export const getToken = async (code: string): Promise<string> => {
   let codeVerifier = localStorage.getItem("code_verifier");
 
-  if (!codeVerifier) return "";
+  if (!codeVerifier) throw new Error("Invalid code verifier.");
 
   const body = new URLSearchParams({
-    grant_type: "authorization_code",
-    code: code,
-    redirect_uri: redirectUri,
     client_id: process.env.NEXT_PUBLIC_ENV_LOCAL_CLIENT_ID || "",
+    grant_type: "authorization_code",
+    code,
+    redirect_uri: redirectUri,
     code_verifier: codeVerifier,
   });
 
@@ -18,14 +18,15 @@ export const getToken = async (code: string): Promise<string> => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: body,
+    body,
   };
 
   const response = await fetch(baseToken, payload).then((response) =>
     response.json()
   );
 
-  localStorage.setItem("access_token", response.access_token);
+  if (response.access_token)
+    localStorage.setItem("access_token", response.access_token);
   return response.access_token;
 };
 

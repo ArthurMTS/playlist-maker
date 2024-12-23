@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
 
-import { useStorage } from "@/hooks/useStorage";
 import { getToken } from "@/utils/spotify";
 
 interface iAccessTokenContext {
-  accessToken: string;
+  accessToken: string | null;
   setAccessToken: (token: string) => void;
 }
 
@@ -18,7 +17,7 @@ export const AccessTokenContext = React.createContext(
 );
 
 export const AccessTokenProvider = ({ children }: AccessTokenProviderProps) => {
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   React.useEffect(() => {
     const fetchToken = async () => {
