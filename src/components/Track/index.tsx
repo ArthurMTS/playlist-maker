@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Button, TrackText, TrackTitle } from "@/components";
+import { Button } from "@/components";
 import { useAudio } from "@/hooks/useAudio";
-import { getTextSize } from "@/utils/functions";
 
 interface TrackProps {
   name: string;
@@ -24,15 +23,6 @@ export function Track({
   preview_url,
 }: TrackProps) {
   const [playing, toggle] = useAudio(preview_url || "");
-  const [textSize, setTextSize] = React.useState(25);
-
-  React.useEffect(() => {
-    window.addEventListener("resize", () => setTextSize(getTextSize()));
-
-    return window.removeEventListener("resize", () =>
-      setTextSize(getTextSize())
-    );
-  }, []);
 
   return (
     <div className="flex items-center justify-between bg-slate-950 hover:bg-slate-900 rounded-xl p-1 w-full">
@@ -50,11 +40,19 @@ export function Track({
         {image ? <img className="w-10" src={image} alt={name} /> : ""}
 
         <div className="flex flex-col">
-          <TrackTitle name={name} textSize={textSize} />
-          <div className="gap-2 items-center hidden sm:flex">
-            <TrackText text={artist} textSize={textSize} />
+        <p title={name} className="text-slate-100 font-mono text-sm xl:text-base whitespace-nowrap overflow-hidden text-ellipsis w-[200px] sm:w-full lg:w-[200px] xl:w-full">
+          {name}
+        </p>
+          <div className="gap-2 items-center flex"> 
+            <p title={artist} className="text-slate-300 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-24 sm:w-40 lg:w-24 xl:w-40">
+              {artist}
+            </p>
+
             <span className="text-slate-300">|</span>
-            <TrackText text={album} textSize={textSize} />
+
+            <p title={album} className="text-slate-300 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-24 sm:w-full lg:w-24 xl:w-full">
+              {album}
+            </p>
           </div>
         </div>
       </div>

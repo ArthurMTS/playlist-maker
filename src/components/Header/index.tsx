@@ -2,7 +2,7 @@
 import React from "react";
 
 import { Login, SearchBar } from "@/components";
-import { base64encode, generateRandomString, sha256 } from "@/utils/functions";
+import { base64encode, generateRandomString, sha256 } from "@/utils/helpers";
 import { baseAuth, redirectUri, scope } from "@/config/consts";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
