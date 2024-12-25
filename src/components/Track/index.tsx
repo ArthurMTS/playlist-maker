@@ -1,14 +1,13 @@
 import React from "react";
 
 import { Button } from "@/components";
-import { useAudio } from "@/hooks/useAudio";
 
 interface TrackProps {
   name: string;
   image?: string;
   artist: string;
   album: string;
-  preview_url: string | null;
+  spotify_url: string;
   remove?: boolean;
   onClick?: () => void;
 }
@@ -20,22 +19,18 @@ export function Track({
   album,
   remove,
   onClick,
-  preview_url,
+  spotify_url,
 }: TrackProps) {
-  const [playing, toggle] = useAudio(preview_url || "");
-
   return (
     <div className="flex items-center justify-between bg-slate-950 hover:bg-slate-900 rounded-xl p-1 w-full">
       <div className="flex gap-4 items-center">
-        <Button
-          className="rounded-full p-1 bg-transparent hover:bg-transparent"
-          onClick={typeof toggle === "boolean" ? () => {} : toggle}
-        >
+        <a className="cursor-pointer" href={spotify_url} target="_blank" rel="noopener noreferrer" title="Listen on spotify">
           <img
-            src={playing ? "/icons/pause.svg" : "/icons/play.svg"}
-            alt="toggle playing"
+            width={30}
+            src="/icons/spotify.svg"
+            alt="spotify icon"
           />
-        </Button>
+        </a>
 
         {image ? <img className="w-10" src={image} alt={name} /> : ""}
 

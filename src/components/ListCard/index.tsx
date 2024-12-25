@@ -34,7 +34,7 @@ export function ListCard({
             image={track.album.images[0]?.url}
             artist={track.artists[0]?.name}
             album={track.album.name}
-            preview_url={track.preview_url}
+            spotify_url={track.external_urls.spotify}
             remove={playlist}
             onClick={() => onClick(track)}
           />

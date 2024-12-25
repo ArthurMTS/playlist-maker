@@ -11,7 +11,9 @@ export interface iTrack {
       name: string;
     }
   ];
-  preview_url: string | null;
+  external_urls: {
+    spotify: string;
+  }
 }
 
 export interface iUser {
