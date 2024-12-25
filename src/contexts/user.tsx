@@ -22,7 +22,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   React.useEffect(() => {
     const fetchUser = async () => {
-
       if (!accessToken) return;
       
       try {

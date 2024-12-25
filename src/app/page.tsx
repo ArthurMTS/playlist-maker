@@ -11,31 +11,35 @@ import { createPlaylist, populatePlaylist } from "@/utils/spotify";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
-  const [title, setTitle] = React.useState("New Playlist");
-  const [href, setHref] = React.useState("");
+  const [playlistTitle, setPlaylistTitle] = React.useState("New Playlist");
+  const [hrefToPlaylist, setHrefToPlaylist] = React.useState("");
   const { tracks, playlist, setPlaylist, addToPlaylist, removeFromPlaylist } =
     React.useContext(TracksContext);
   const { accessToken } = React.useContext(AccessTokenContext);
   const { user } = React.useContext(UserContext);
 
-  const success = () => toast("Playlist create!");
-  const error = () => toast("Someting gone wrong!");
+  const success = () => toast("Playlist created!");
+
+  const error = () => toast("Something went wrong!");
+
   const ontitleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setTitle(event.target.value);
+    setPlaylistTitle(event.target.value);
+  
   const onSavePlaylistButtonClick = async () => {
     if (playlist.length <= 0 || !user || !accessToken) return;
 
     try {
-      const newPlaylist = await createPlaylist(accessToken, title, user?.id);
+      const newPlaylist = await createPlaylist(accessToken, playlistTitle, user.id);
       const uris = playlist.map((track) => track.uri);
       await populatePlaylist(accessToken, newPlaylist.id, uris);
-      setHref(newPlaylist.external_urls.spotify);
-      setTitle("New Playlist");
-      setPlaylist([]);
+      setHrefToPlaylist(newPlaylist.external_urls.spotify);
       success();
     } catch (err) {
       console.error(err);
       error();
+    } finally {
+      setPlaylistTitle("New Playlist");
+      setPlaylist([]);
     }
   };
 
@@ -63,30 +67,31 @@ export default function Home() {
                   type="text"
                   title="Click to change playlist name"
                   placeholder="Playlist Title"
-                  value={title}
+                  value={playlistTitle}
                   onChange={ontitleInputChange}
                 />
               }
               list={playlist}
-              href={href}
+              href={hrefToPlaylist}
               onClick={removeFromPlaylist}
               playlist
               button={
                 <Button
-                  className="p-2 font-mono mt-2 rounded"
+                  className="px-2 py-1 text-lg font-mono mt-2 rounded"
                   onClick={onSavePlaylistButtonClick}
                 >
-                  Save Spotify
+                  Create Playlist
                 </Button>
               }
               redirect={
                 <a
-                  className="text-lg text-slate-100 bg-indigo-700 p-2 font-mono rounded-full hover:scale-105"
-                  href={href}
+                  className="text-lg text-slate-100 bg-indigo-700 px-2 py-1 font-mono rounded-full hover:scale-105"
+                  href={hrefToPlaylist}
                   target="_blank"
-                  onClick={() => setHref("")}
+                  rel="noopener noreferrer"
+                  onClick={() => setHrefToPlaylist("")}
                 >
-                  Take a look!
+                  Look your new playlist
                 </a>
               }
             />

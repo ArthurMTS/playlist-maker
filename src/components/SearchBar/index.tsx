@@ -5,7 +5,6 @@ import { Button } from "@/components";
 import { search } from "@/utils/spotify";
 import { AccessTokenContext } from "@/contexts/accessToken";
 import { TracksContext } from "@/contexts/tracks";
-import { iTrack } from "@/config/types";
 
 export function SearchBar() {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -15,6 +14,7 @@ export function SearchBar() {
   const onSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+  
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (searchTerm === "" || !accessToken) return;

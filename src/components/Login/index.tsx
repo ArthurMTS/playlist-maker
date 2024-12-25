@@ -9,7 +9,13 @@ interface LoginProps {
 }
 
 export function Login({ onLogin, onLogout }: LoginProps) {
+  const [logIcon, setLogIcon] = React.useState("");
   const { user } = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    if (user) setLogIcon("log-out.svg");
+    else setLogIcon("log-in.svg");
+  }, [user])
 
   return (
     <div className="flex items-center gap-2 mr-0 m-auto m-0">
@@ -22,7 +28,7 @@ export function Login({ onLogin, onLogout }: LoginProps) {
                 ? user?.images[0]?.url
                 : "/icons/user.svg"
             }
-            alt="usar avatar"
+            alt="user avatar"
           />
           {user.display_name}{" "}
         </p>
@@ -35,8 +41,8 @@ export function Login({ onLogin, onLogout }: LoginProps) {
       >
         <img
           className="bg-slate-900 p-2 rounded-full"
-          src={user ? "/icons/log-out.svg" : "/icons/log-in.svg"}
-          alt={user ? "log Out icon" : "log in icon"}
+          src={`/icons/${logIcon}`}
+          alt={user ? "Log out icon" : "Log in icon"}
           title={user ? "Log Out" : "Log In"}
         />
       </Button>

@@ -32,12 +32,16 @@ export function Track({
           />
         </a>
 
-        {image ? <img className="w-10" src={image} alt={name} /> : ""}
+        {image ? 
+          <img className="w-10" src={image} alt={name} /> :
+          <img className="w-10" src="/icons/music.svg" alt="Music note icon" />
+        }
 
         <div className="flex flex-col">
-        <p title={name} className="text-slate-100 font-mono text-sm xl:text-base whitespace-nowrap overflow-hidden text-ellipsis w-[200px] sm:w-full lg:w-[200px] xl:w-full">
-          {name}
-        </p>
+          <p title={name} className="text-slate-100 font-mono text-sm xl:text-base whitespace-nowrap overflow-hidden text-ellipsis w-[200px] sm:w-full lg:w-  [200px] xl:w-full">
+            {name}
+          </p>
+          
           <div className="gap-2 items-center flex"> 
             <p title={artist} className="text-slate-300 text-xs whitespace-nowrap overflow-hidden text-ellipsis w-24 sm:w-40 lg:w-24 xl:w-40">
               {artist}

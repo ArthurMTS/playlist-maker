@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import { useStorage } from "@/hooks/useStorage";
 
 export function Footer() {
   const [theme, setTheme] = useStorage("theme", "dark");
-  const [icon, setIcon] = useState("/icons/sun.svg");
+  const [icon, setIcon] = React.useState("/icons/sun.svg");
 
   React.useEffect(() => {
     if (theme === "dark") {
